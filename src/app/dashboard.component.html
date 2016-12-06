@@ -1,0 +1,11 @@
+<h1>Dashboard</h1>
+<!--<spinner-component></spinner-component>-->
+
+<div class="grid grid-pad">
+  <a *ngFor="let page of pages" [routerLink]="['/detail', page.id]" class="col-1-4">
+    <div class="module hero">
+      <h4>{{page.name}}</h4>
+    </div>
+  </a>
+</div>
+
