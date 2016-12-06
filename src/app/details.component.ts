@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
-
+import { SpinnerService} from './spinner-service';
 import { Page } from './page';
 import { Service } from './service';
 
@@ -22,13 +22,20 @@ export class DetailComponent implements OnInit {
   constructor(
     private objService: Service,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    public spinner: SpinnerService
   ) {}
 
   ngOnInit(): void {
+
     this.route.params
-      .switchMap((params: Params) => this.objService.getPage(+params['id']))
-      .subscribe(page => this.page = page);
+      .switchMap((params: Params) =>
+        this.objService.getPage(+params['id']))
+      .subscribe(page => {
+        this.spinner.stop();
+        this.page = page});
+
+    //this.spinner.stop();
   }
 
   /*save(): void {
